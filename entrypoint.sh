@@ -7,8 +7,8 @@ sleep 1
 x11vnc -display "$DISPLAY" -forever -shared -localhost \
   -rfbport "$VNC_PORT" -passwd "$VNC_PASSWORD" -noxdamage -q &
 
-# 只监听本机，外部用 SSH 隧道或 nginx 访问
-websockify --web /usr/share/novnc 127.0.0.1:"$NOVNC_PORT" localhost:"$VNC_PORT" &
+# 监听端口，外部用 SSH 隧道或 nginx 访问
+websockify --web /usr/share/novnc 0.0.0.0:"$NOVNC_PORT" localhost:"$VNC_PORT" &
 
 # scrcpy 掉线自动重连
 while true; do

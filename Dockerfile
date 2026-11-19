@@ -15,6 +15,13 @@ RUN curl -fsSL -o /tmp/scrcpy.tgz \
     && tar xf /tmp/scrcpy.tgz -C /opt/scrcpy --strip-components=1 \
     && rm /tmp/scrcpy.tgz
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      xvfb x11vnc novnc websockify \
+      ca-certificates curl xz-utils \
+      libsdl2-2.0-0 libusb-1.0-0 \
+      iproute2 procps \
+    && rm -rf /var/lib/apt/lists/*
+
 ENV PATH=/opt/scrcpy:$PATH \
     ANDROID_ADB_SERVER_PORT=5038 \
     ADB_ADDR=127.0.0.1:15555 \
